@@ -2,7 +2,8 @@
 import React from 'react';
 import { CreditCard, Download, ExternalLink, Plus, Trash2 } from 'lucide-react';
 import { User, ClientData } from '../types';
-const PUBLIC_BASE = "https://skypeakdesigns.com/dashboard-backend";
+const VITE_PUBLIC_BASE = import.meta.env.VITE_PUBLIC_BASE;
+
 // OR localhost during dev:
 // const PUBLIC_BASE = "http://localhost/dashboard-backend";
 
