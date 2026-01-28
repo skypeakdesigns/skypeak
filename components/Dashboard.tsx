@@ -279,13 +279,13 @@ const Dashboard: React.FC<DashboardProps> = ({ setActiveTab, clientData }) => {
             <div className="flex items-center gap-4 mb-6">
               <div className="w-14 h-14 bg-orange-100 rounded-2xl flex items-center justify-center text-orange-500 font-black text-xl">SJ</div>
               <div>
-                <p className="text-sm font-black text-slate-900">Sarah Jenkins</p>
+                <p className="text-sm font-black text-slate-900">Muhammad Alfaauri</p>
                 <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Account Manager</p>
               </div>
             </div>
             <div className="space-y-3">
               <div className="flex items-center gap-2 text-xs font-bold text-slate-500">
-                <Calendar className="w-3 h-3" /> Availability: Mon - Fri
+                <Calendar className="w-3 h-3" /> Availability: Mon - Sat
               </div>
               <div className="flex items-center gap-2 text-xs font-bold text-slate-500">
                 <CheckCircle2 className="w-3 h-3 text-emerald-500" /> Priority Response: Active
