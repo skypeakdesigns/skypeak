@@ -64,7 +64,7 @@ const PaymentsSection: React.FC<PaymentsSectionProps> = ({ user, clientData }) =
                   <td className="px-6 py-4 text-right"><div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
 {inv.pdf_path && (
   <a
-    href={`${PUBLIC_BASE}/${inv.pdf_path}`}
+    href={`${VITE_PUBLIC_BASE}/${inv.pdf_path}`}
     target="_blank"
     rel="noreferrer"
     className="p-2 text-slate-400 hover:text-orange-500 transition-colors"
