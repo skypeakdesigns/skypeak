@@ -1743,6 +1743,40 @@ const updateActivity = async (
 </div>
 
   {/* INVOICE LIST */}
+   <div className="mt-6 p-4 border rounded-xl bg-slate-50 space-y-3">
+  <p className="text-xs font-black text-slate-600">
+    If you want to Upload Existing Invoice (PDF)
+  </p>
+{/* AMOUNT */}
+  <input
+    type="number"
+    placeholder="Invoice Amount ($)"
+    value={uploadAmount}
+    onChange={e => setUploadAmount(Number(e.target.value) || "")}
+    className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-xs"
+  />
+  <input
+    type="file"
+    accept="application/pdf"
+    onChange={e => setUploadFile(e.target.files?.[0] || null)}
+    className="text-xs"
+  />
+
+  {uploadFile && (
+    <p className="text-[10px] text-emerald-600 font-bold">
+      Selected: {uploadFile.name}
+    </p>
+  )}
+
+  <button
+    type="button"
+    onClick={uploadAndCreateInvoice}
+    disabled={!uploadFile}
+    className="px-4 py-2 rounded-lg text-xs font-black text-white bg-blue-600 hover:bg-blue-700 disabled:opacity-50"
+  >
+    Upload Invoice
+  </button>
+</div>
   <div className="max-h-48 overflow-y-auto bg-slate-50 rounded-2xl p-4 border border-slate-200 space-y-2">
     {form.invoices.length === 0 && (
       <p className="text-xs text-slate-400 text-center">
@@ -1783,40 +1817,7 @@ const updateActivity = async (
         </div>
       </div>
     ))}
- <div className="mt-6 p-4 border rounded-xl bg-slate-50 space-y-3">
-  <p className="text-xs font-black text-slate-600">
-    Upload Existing Invoice (PDF)
-  </p>
-{/* AMOUNT */}
-  <input
-    type="number"
-    placeholder="Invoice Amount ($)"
-    value={uploadAmount}
-    onChange={e => setUploadAmount(Number(e.target.value) || "")}
-    className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-xs"
-  />
-  <input
-    type="file"
-    accept="application/pdf"
-    onChange={e => setUploadFile(e.target.files?.[0] || null)}
-    className="text-xs"
-  />
 
-  {uploadFile && (
-    <p className="text-[10px] text-emerald-600 font-bold">
-      Selected: {uploadFile.name}
-    </p>
-  )}
-
-  <button
-    type="button"
-    onClick={uploadAndCreateInvoice}
-    disabled={!uploadFile}
-    className="px-4 py-2 rounded-lg text-xs font-black text-white bg-blue-600 hover:bg-blue-700 disabled:opacity-50"
-  >
-    Upload Invoice
-  </button>
-</div>
   </div>
 </div>
 
