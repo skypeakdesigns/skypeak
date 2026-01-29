@@ -68,9 +68,6 @@ const Dashboard: React.FC<DashboardProps> = ({ setActiveTab, clientData }) => {
           </div>
         </div>
         <div className="flex gap-3">
-          <button className="p-3 bg-white border border-slate-200 rounded-xl text-slate-400 hover:text-orange-500 transition-all shadow-sm">
-            <Download className="w-5 h-5" />
-          </button>
           <button 
             onClick={() => setActiveTab(AppTab.HELP)}
             className="px-6 py-3 bg-[#0f172a] text-white rounded-xl font-black text-sm flex items-center gap-2 hover:bg-slate-800 transition-all shadow-xl shadow-slate-900/10 active:scale-95"
