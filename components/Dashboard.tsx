@@ -60,7 +60,7 @@ const Dashboard: React.FC<DashboardProps> = ({ setActiveTab, clientData }) => {
       {/* 1. WELCOME HERO SECTION */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
-          <h1 className="text-4xl font-black text-slate-900 tracking-tight">Welcome, {clientData.name} 👋</h1>
+          <h1 className="text-4xl font-black text-slate-900 tracking-tight">Welcome, {clientData.name} </h1>
           <div className="flex items-center gap-3 mt-2">
             <div className="px-3 py-1 bg-orange-100 text-orange-600 rounded-lg text-[10px] font-black uppercase tracking-widest">Global Asset</div>
             <span className="text-slate-500 font-medium">Managing:</span>
