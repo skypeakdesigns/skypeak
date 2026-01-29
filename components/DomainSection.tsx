@@ -108,6 +108,6 @@ const DomainSection: React.FC<DomainSectionProps> = ({ clientData }) => {
       </div>
     </div>
   );
-};
+};  
 
 export default DomainSection;
