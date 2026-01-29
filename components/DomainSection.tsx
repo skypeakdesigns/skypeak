@@ -70,9 +70,7 @@ const DomainSection: React.FC<DomainSectionProps> = ({ clientData }) => {
                     </p>
                   </div>
                 </div>
-                <button className="w-full py-4 bg-slate-100 hover:bg-slate-200 text-slate-900 font-black rounded-xl text-xs uppercase tracking-widest flex items-center justify-center gap-2 transition-all">
-                  Request DNS Change <ExternalLink className="w-4 h-4" />
-                </button>
+      
               </div>
 
               <div className="bg-slate-50 p-8 rounded-[2rem] border border-slate-200/60">
@@ -96,14 +94,6 @@ const DomainSection: React.FC<DomainSectionProps> = ({ clientData }) => {
           </div>
         </div>
 
-        <div className="space-y-8">
-          <div className="bg-white p-8 rounded-[2.5rem] border border-slate-200 shadow-xl shadow-slate-200/40">
-            <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-6">Nameservers</h4>
-            <div className="space-y-3">
-              <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100 font-mono text-xs text-slate-600">ns1.skypeak.com</div>
-              <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100 font-mono text-xs text-slate-600">ns2.skypeak.com</div>
-            </div>
-          </div>
 
           <div className="bg-orange-50 border border-orange-100 p-8 rounded-[2.5rem]">
             <div className="flex items-center gap-3 mb-4">
