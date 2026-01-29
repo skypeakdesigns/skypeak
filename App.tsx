@@ -288,7 +288,7 @@ const getDashboardLabel = () => {
       </div>
 
       <p className="mt-8 text-slate-500 text-[10px] font-bold uppercase tracking-[0.2em]">
-        © 2025 SkyPeak Designs
+        © 2026 SkyPeak Designs
       </p>
     </div>
   );
