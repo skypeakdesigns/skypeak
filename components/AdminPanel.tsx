@@ -249,6 +249,7 @@ const handleSubmit = async (e: React.FormEvent) => {
   const payload = {
     name: form.name,
     email: form.email,
+    username: form.username,   
     domain: form.domain,
 
     trafficData: Array.isArray(form.trafficData)
