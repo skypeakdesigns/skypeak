@@ -21,6 +21,9 @@ const AdminPanel: React.FC = () => {
   const [clients, setClients] = useState<ClientData[]>([]);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState<any>(null);
+  const [activeAdminView, setActiveAdminView] = useState<"CLIENTS" | "SUPPORT">("CLIENTS");
+const [supportMessages, setSupportMessages] = useState<any[]>([]);
+
 useEffect(() => {
   if (!user || user.role !== "CLIENT") return;
 
@@ -1299,6 +1302,18 @@ const updateActivity = async (
   );
 
   loadWorkTime(editingId!);
+};
+const loadSupportMessages = async () => {
+  try {
+    const res = await fetch(`${API_BASE}/admin/support.php`);
+    const data = await res.json();
+
+    if (data.success) {
+      setSupportMessages(data.messages || []);
+    }
+  } catch (err) {
+    console.error("Support load failed", err);
+  }
 };
 
   /* ================= LOADING ================= */
