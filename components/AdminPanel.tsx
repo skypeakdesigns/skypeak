@@ -291,76 +291,55 @@ const handleSubmit = async (e: React.FormEvent) => {
   };
 
   try {
-   const res = await fetch(
-  `${API_BASE}/admin/clients.php${editingId ? `?id=${editingId}` : ""}`,
-  {
-    method: editingId ? "PUT" : "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-    },
-   const finalPayload: any = {
-  ...payload,
-  username: form.username
-};
+ try {
+  const finalPayload: any = {
+    ...payload,
+    username: form.username
+  };
 
-if (form.password && form.password.trim() !== "") {
-  finalPayload.password = form.password;
-}
-
-const res = await fetch(
-  `${API_BASE}/admin/clients.php${editingId ? `?id=${editingId}` : ""}`,
-  {
-    method: editingId ? "PUT" : "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-    },
-    body: JSON.stringify(finalPayload),
+  // Only send password if user typed something
+  if (form.password && form.password.trim() !== "") {
+    finalPayload.password = form.password;
   }
-);
-  const text = await res.text();
-console.log("RAW RESPONSE:", text);
 
-let data;
-try {
-  data = JSON.parse(text);
-} catch (e) {
-  console.error("INVALID JSON FROM SERVER");
-  alert("Server returned invalid JSON");
-  return;
-}
+  console.log("SENDING:", finalPayload);
 
-console.log("PARSED DATA:", data);
+  const res = await fetch(
+    `${API_BASE}/admin/clients.php${editingId ? `?id=${editingId}` : ""}`,
+    {
+      method: editingId ? "PUT" : "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+      },
+      body: JSON.stringify(finalPayload),
+    }
+  );
 
-if (!res.ok || data.success === false) {
-  alert("SAVE FAILED — CHECK CONSOLE");
-  return;
-}
+  const data = await res.json();
 
-    const clientId = editingId || data.clientId;
+  console.log("RESPONSE:", data);
 
-    // ✅ Ensure edit mode
-    setEditingId(clientId);
-    if (!editingId) {
-  setActiveSubTab("SEO"); // only on first create
-}
-    // 🔄 Reload all child data from DB
-    await Promise.all([
-      loadSEO(clientId),
-      loadInvoices(clientId),
-      loadMilestones(clientId),
-      loadMaintenance(clientId),
-      loadActivity(clientId),
-    ]);
+  if (!res.ok || data.success === false) {
+    alert("SAVE FAILED — CHECK CONSOLE");
+    return;
+  }
 
-    // 🔁 Refresh client list
-    await fetchClients();
-  } catch (err) {
+  const clientId = editingId || data.clientId;
+
+  setEditingId(clientId);
+
+  if (!editingId) {
+    setActiveSubTab("SEO");
+  }
+
+  await fetchClients();
+
+} catch (err) {
   console.error(err);
-  alert("Client saved, but some data failed to reload");
+  alert("Client save failed");
 }
-};
+
   /* ================= DELETE CLIENT ================= */
  const removeClient = async (id: string) => {
   if (!confirm("Permanently delete this account?")) return;
