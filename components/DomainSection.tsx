@@ -77,7 +77,7 @@ const calculateDaysRemaining = (expiry?: string) => {
               </div>
 
               <div className="bg-slate-50 p-8 rounded-[2rem] border border-slate-200/60">
-                <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-6">Registry Details</h4>
+                <h4 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-6">Registry Details</h4>
                 <div className="space-y-4">
                   <div className="flex justify-between items-center text-sm">
                     <span className="text-slate-500 font-bold">Registrar Provider</span>
