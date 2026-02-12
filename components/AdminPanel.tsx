@@ -1416,7 +1416,7 @@ const updateActivity = async (
           </table>
   
             </div>
-            
+  </div>
             {isModalOpen && (
   <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60">
     <div className="bg-white w-full max-w-6xl max-h-[90vh] rounded-3xl overflow-hidden flex flex-col">
