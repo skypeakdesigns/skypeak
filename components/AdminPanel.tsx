@@ -249,7 +249,6 @@ const handleSubmit = async (e: React.FormEvent) => {
   const payload = {
     name: form.name,
     email: form.email,
-    username: form.username,   
     domain: form.domain,
 
     trafficData: Array.isArray(form.trafficData)
@@ -290,56 +289,69 @@ const handleSubmit = async (e: React.FormEvent) => {
     workTime: form.workTime
   };
 
-  
- try {
-  const finalPayload: any = {
-    ...payload,
-    username: form.username
-  };
+  try {
+    const res = await fetch(
+      `${API_BASE}/admin/clients.php${editingId ? `?id=${editingId}` : ""}`,
+      {
+        method: editingId ? "PUT" : "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+        },
+        body: JSON.stringify(
+          editingId
+            ? payload
+            : {
+                ...payload,
+                username: form.username,
+                password: form.password,
+              }
+        ),
+      }
+    );
 
-  // Only send password if user typed something
-  if (form.password && form.password.trim() !== "") {
-    finalPayload.password = form.password;
-  }
+  const text = await res.text();
+console.log("RAW RESPONSE:", text);
 
-  console.log("SENDING:", finalPayload);
-
-  const res = await fetch(
-    `${API_BASE}/admin/clients.php${editingId ? `?id=${editingId}` : ""}`,
-    {
-      method: editingId ? "PUT" : "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json",
-      },
-      body: JSON.stringify(finalPayload),
-    }
-  );
-
-  const data = await res.json();
-
-  console.log("RESPONSE:", data);
-
-  if (!res.ok || data.success === false) {
-    alert("SAVE FAILED — CHECK CONSOLE");
-    return;
-  }
-
-  const clientId = editingId || data.clientId;
-
-  setEditingId(clientId);
-
-  if (!editingId) {
-    setActiveSubTab("SEO");
-  }
-
-  await fetchClients();
-
-} catch (err) {
-  console.error(err);
-  alert("Client save failed");
+let data;
+try {
+  data = JSON.parse(text);
+} catch (e) {
+  console.error("INVALID JSON FROM SERVER");
+  alert("Server returned invalid JSON");
+  return;
 }
 
+console.log("PARSED DATA:", data);
+
+if (!res.ok || data.success === false) {
+  alert("SAVE FAILED — CHECK CONSOLE");
+  return;
+}
+
+    const clientId = editingId || data.clientId;
+
+    // ✅ Ensure edit mode
+    setEditingId(clientId);
+    if (!editingId) {
+  setActiveSubTab("SEO"); // only on first create
+}
+    // 🔄 Reload all child data from DB
+    await Promise.all([
+      loadSEO(clientId),
+      loadInvoices(clientId),
+      loadMilestones(clientId),
+      loadMaintenance(clientId),
+      loadActivity(clientId),
+    ]);
+
+    // 🔁 Refresh client list
+    await fetchClients();
+  } catch (err) {
+  console.error(err);
+  alert("Client saved, but some data failed to reload");
+}
+};
   /* ================= DELETE CLIENT ================= */
  const removeClient = async (id: string) => {
   if (!confirm("Permanently delete this account?")) return;
@@ -1357,7 +1369,7 @@ const updateActivity = async (
               {clients.map((client) => (
                 <tr key={client.id} className="hover:bg-slate-50/40 group transition-all">
                   <td className="px-8 py-6"><div className="font-bold text-slate-900">{client.name}</div><div className="text-xs text-slate-500">{client.domain}</div></td>
-                  <td className="px-8 py-6"><div className="text-sm font-bold text-slate-700">{client.username}</div><div className="text-[10px] text-slate-400 font-mono"></div></td>
+                  <td className="px-8 py-6"><div className="text-sm font-bold text-slate-700">{client.username}</div><div className="text-[10px] text-slate-400 font-mono">{client.password}</div></td>
                   <td className="px-8 py-6"><div className="flex items-center gap-1.5"><span className="w-2 h-2 bg-emerald-500 rounded-full"></span><span className="text-[10px] font-black uppercase tracking-widest text-slate-500">Healthy</span></div></td>
                   <td className="px-8 py-6"><div className="font-black text-slate-900">${(client.monthlyPrice + client.maintenancePrice).toFixed(0)}</div></td>
                   <td className="px-8 py-6 text-right"><div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity"><button onClick={() => openEdit(client)} className="p-2 text-slate-400 hover:text-orange-500 border border-slate-100 rounded-lg"><Edit2 className="w-4 h-4" /></button><button onClick={() => removeClient(client.id)} className="p-2 text-slate-400 hover:text-red-500 border border-slate-100 rounded-lg"><Trash2 className="w-4 h-4" /></button></div></td>
@@ -1445,22 +1457,7 @@ const updateActivity = async (
                     <h4 className="text-lg font-black text-slate-900 flex items-center gap-2"><Lock className="w-5 h-5 text-blue-500" /> Portal Credentials</h4>
                     <div className="space-y-4">
                       <div className="space-y-2"><label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Username</label><input required type="text" value={form.username} onChange={e => setForm({...form, username: e.target.value})} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none" /></div>
-                      <div className="space-y-2">
-  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
-    Secure Password
-  </label>
-
-  <input
-    type="password"
-    value={form.password}
-    onChange={e =>
-      setForm({ ...form, password: e.target.value })
-    }
-    placeholder={editingId ? "Leave blank to keep current password" : "Enter password"}
-    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none"
-  />
-</div>
-
+                      <div className="space-y-2"><label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Secure Password</label><input required type="text" value={form.password} onChange={e => setForm({...form, password: e.target.value})} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none" /></div>
                     </div>
                   </div>
                 </div>
