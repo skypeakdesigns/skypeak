@@ -459,6 +459,8 @@ const addInvoice = async () => {
     invoice_no: "Generating…",
     amount,
     status,            // ✅ dynamic
+    invoice_date: form.invoiceDate,
+    due_date: form.dueDate,
     pdf_path: null,
   };
 
@@ -476,11 +478,14 @@ const addInvoice = async () => {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
-        body: JSON.stringify({
-          client_id: editingId,
-          amount,
-          status,        // ✅ dynamic
-        }),
+       body: JSON.stringify({
+  client_id: editingId,
+  amount,
+  status,
+  invoice_date: form.invoiceDate,
+  due_date: form.dueDate,
+}),
+
       }
     );
 
@@ -1740,6 +1745,41 @@ const updateActivity = async (
     <option value="Overdue">Overdue</option>
     <option value="Cancelled">Cancelled</option>
   </select>
+</div>
+{/* INVOICE DATE */}
+<div className="space-y-2">
+  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+    Invoice Date
+  </label>
+  <input
+    type="date"
+    value={form.invoiceDate || ""}
+    onChange={e =>
+      setForm(prev => ({
+        ...prev,
+        invoiceDate: e.target.value,
+      }))
+    }
+    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none"
+  />
+</div>
+
+{/* DUE DATE */}
+<div className="space-y-2">
+  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+    Payment Due Date
+  </label>
+  <input
+    type="date"
+    value={form.dueDate || ""}
+    onChange={e =>
+      setForm(prev => ({
+        ...prev,
+        dueDate: e.target.value,
+      }))
+    }
+    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none"
+  />
 </div>
 
   {/* INVOICE LIST */}
