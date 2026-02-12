@@ -189,12 +189,13 @@ const loadClients = async () => {
   };
 
   /* ================= NAV ================= */
-  const navItems =
-    user?.role === "ADMIN"
-      ? [
-          { id: AppTab.CLIENTS, icon: Users },
+ const navItems =
+  user?.role === "ADMIN"
+    ? [
+        { id: AppTab.CLIENTS, icon: Users },
+        { id: AppTab.HELP, icon: LifeBuoy }, // 👈 ADD THIS
+      ]
 
-        ]
       : [
           { id: AppTab.DASHBOARD, icon: LayoutDashboard },
           { id: AppTab.DOMAIN, icon: Globe },
