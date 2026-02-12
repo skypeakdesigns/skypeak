@@ -291,25 +291,22 @@ const handleSubmit = async (e: React.FormEvent) => {
   };
 
   try {
-    const res = await fetch(
-      `${API_BASE}/admin/clients.php${editingId ? `?id=${editingId}` : ""}`,
-      {
-        method: editingId ? "PUT" : "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json",
-        },
-        body: JSON.stringify(
-          editingId
-            ? payload
-            : {
-                ...payload,
-                username: form.username,
-                password: form.password,
-              }
-        ),
-      }
-    );
+   const res = await fetch(
+  `${API_BASE}/admin/clients.php${editingId ? `?id=${editingId}` : ""}`,
+  {
+    method: editingId ? "PUT" : "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+    },
+    body: JSON.stringify({
+      ...payload,
+      username: form.username,
+      password: form.password
+    }),
+  }
+);
+
 
   const text = await res.text();
 console.log("RAW RESPONSE:", text);
