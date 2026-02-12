@@ -240,7 +240,6 @@ const openEdit = async (client: ClientData) => {
 const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
 
-  // 🔒 Validation (ONLY when creating)
   if (!editingId && (!form.username || !form.password)) {
     alert("Username & Password are required");
     return;
@@ -250,59 +249,45 @@ const handleSubmit = async (e: React.FormEvent) => {
     name: form.name,
     email: form.email,
     domain: form.domain,
-
-    trafficData: Array.isArray(form.trafficData)
-      ? form.trafficData
-      : [],
-
+    trafficData: Array.isArray(form.trafficData) ? form.trafficData : [],
     seoScore: form.seoScore,
     seoImpressions: form.seoImpressions,
     seoCTR: form.seoCTR,
     seoTotalKeywords: form.seoTotalKeywords,
-
     organicPercent: form.organicPercent,
     directPercent: form.directPercent,
     referralPercent: form.referralPercent,
-
     speedIndex: form.speedIndex,
     mobileUX: form.mobileUX,
-
     domainExpiry: form.domainExpiry,
     serverExpiry: form.serverExpiry,
     registrar: form.registrar,
     serverIP: form.serverIP,
     serverLocation: form.serverLocation,
-
     phpVersion: form.phpVersion,
     osVersion: form.osVersion,
     dbVersion: form.dbVersion,
-
     maintenanceStatus: form.maintenanceStatus,
     maintenancePlanName: form.maintenancePlanName,
     maintenanceNextCharge: form.maintenanceNextCharge,
     maintenanceSecurityScore: form.maintenanceSecurityScore,
     maintenanceBackupStatus: form.maintenanceBackupStatus,
     maintenancePerformanceResponse: form.maintenancePerformanceResponse,
-
     monthlyPrice: form.monthlyPrice,
     maintenancePrice: form.maintenancePrice,
     workTime: form.workTime
   };
 
   try {
-    // ✅ 1️⃣ PREPARE BODY FIRST
     let bodyData: any = { ...payload };
 
     if (!editingId) {
-      // CREATE → must send username + password
       bodyData.username = form.username;
       bodyData.password = form.password;
     } else {
-      // UPDATE → send only if filled
       if (form.username.trim() !== "") {
         bodyData.username = form.username;
       }
-
       if (form.password.trim() !== "") {
         bodyData.password = form.password;
       }
@@ -310,7 +295,6 @@ const handleSubmit = async (e: React.FormEvent) => {
 
     console.log("🚀 FINAL BODY:", bodyData);
 
-    // ✅ 2️⃣ CALL FETCH
     const res = await fetch(
       `${API_BASE}/admin/clients.php${editingId ? `?id=${editingId}` : ""}`,
       {
@@ -330,19 +314,34 @@ const handleSubmit = async (e: React.FormEvent) => {
     try {
       data = JSON.parse(text);
     } catch {
-      console.error("INVALID JSON FROM SERVER");
       alert("Server returned invalid JSON");
       return;
     }
-
-    console.log("PARSED DATA:", data);
 
     if (!res.ok || data.success === false) {
       alert("SAVE FAILED — CHECK CONSOLE");
       return;
     }
 
-    // ✅ Refresh client list
+    const clientId = editingId || data.clientId;
+
+    // ensure edit mode
+    setEditingId(clientId);
+
+    if (!editingId) {
+      setActiveSubTab("SEO");
+    }
+
+    // 🔄 reload child data
+    await Promise.all([
+      loadSEO(clientId),
+      loadInvoices(clientId),
+      loadMilestones(clientId),
+      loadMaintenance(clientId),
+      loadActivity(clientId),
+      loadWorkTime(clientId)
+    ]);
+
     await fetchClients();
 
     alert("Client saved successfully!");
@@ -353,29 +352,6 @@ const handleSubmit = async (e: React.FormEvent) => {
   }
 };
 
-    const clientId = editingId || data.clientId;
-
-    // ✅ Ensure edit mode
-    setEditingId(clientId);
-    if (!editingId) {
-  setActiveSubTab("SEO"); // only on first create
-}
-    // 🔄 Reload all child data from DB
-    await Promise.all([
-      loadSEO(clientId),
-      loadInvoices(clientId),
-      loadMilestones(clientId),
-      loadMaintenance(clientId),
-      loadActivity(clientId),
-    ]);
-
-    // 🔁 Refresh client list
-    await fetchClients();
-  } catch (err) {
-  console.error(err);
-  alert("Client saved, but some data failed to reload");
-}
-};
   /* ================= DELETE CLIENT ================= */
  const removeClient = async (id: string) => {
   if (!confirm("Permanently delete this account?")) return;
