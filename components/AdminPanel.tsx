@@ -1169,14 +1169,6 @@ const saveSingleRanking = async (rk: any) => {
   }
 };
 
-
-  const payload = {
-    client_id: editingId,
-    activity_title: "New Task",
-    activity_status: "Pending",
-    activity_hours: 1
-  };
-
 const [newActivity, setNewActivity] = useState({
   title: "",
   status: "In Progress",
