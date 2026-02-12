@@ -10,14 +10,17 @@ interface DomainSectionProps {
 const DomainSection: React.FC<DomainSectionProps> = ({ clientData }) => {
   if (!clientData) return <div className="p-10 text-center text-slate-400">Loading domain profile...</div>;
 
-  const calculateDaysRemaining = (expiry: string) => {
+const calculateDaysRemaining = (expiry?: string) => {
+  if (!expiry) return 0;
+
     const today = new Date();
     const expiryDate = new Date(expiry);
     const diff = expiryDate.getTime() - today.getTime();
     return Math.max(0, Math.floor(diff / (1000 * 60 * 60 * 24)));
   };
 
-  const daysRemaining = calculateDaysRemaining(clientData.domainExpiry);
+  const daysRemaining = calculateDaysRemaining(clientData.domainExpiry || "");
+
   const statusColor = daysRemaining < 30 ? 'text-red-500' : 'text-emerald-500';
 
   return (
