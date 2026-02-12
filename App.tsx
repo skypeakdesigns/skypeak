@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { AppTab, User, ClientData } from "./types";
+import AdminSupportInbox from "./components/AdminSupportInbox";
 
 import Dashboard from "./components/Dashboard";
 import SEOSection from "./components/SEOSection";
