@@ -289,45 +289,64 @@ const handleSubmit = async (e: React.FormEvent) => {
     workTime: form.workTime
   };
 
-  try {
-    const res = await fetch(
-      `${API_BASE}/admin/clients.php${editingId ? `?id=${editingId}` : ""}`,
-      {
-        method: editingId ? "PUT" : "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json",
-        },
-        body: JSON.stringify(
-          editingId
-            ? payload
-            : {
-                ...payload,
-                username: form.username,
-                password: form.password,
-              }
-        ),
-      }
-    );
+ try {
+
+  // ✅ 1️⃣ PREPARE BODY FIRST
+  let bodyData: any = { ...payload };
+
+  if (!editingId) {
+    // CREATE → must send username + password
+    bodyData.username = form.username;
+    bodyData.password = form.password;
+  } else {
+    // UPDATE → send only if filled
+    if (form.username.trim() !== "") {
+      bodyData.username = form.username;
+    }
+
+    if (form.password.trim() !== "") {
+      bodyData.password = form.password;
+    }
+  }
+
+  console.log("🚀 FINAL BODY:", bodyData);
+
+  // ✅ 2️⃣ THEN CALL FETCH
+  const res = await fetch(
+    `${API_BASE}/admin/clients.php${editingId ? `?id=${editingId}` : ""}`,
+    {
+      method: editingId ? "PUT" : "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+      },
+      body: JSON.stringify(bodyData), // ✅ PUT IT HERE
+    }
+  );
 
   const text = await res.text();
-console.log("RAW RESPONSE:", text);
+  console.log("RAW RESPONSE:", text);
 
-let data;
-try {
-  data = JSON.parse(text);
-} catch (e) {
-  console.error("INVALID JSON FROM SERVER");
-  alert("Server returned invalid JSON");
-  return;
+  let data;
+  try {
+    data = JSON.parse(text);
+  } catch (e) {
+    console.error("INVALID JSON FROM SERVER");
+    alert("Server returned invalid JSON");
+    return;
+  }
+
+  console.log("PARSED DATA:", data);
+
+  if (!res.ok || data.success === false) {
+    alert("SAVE FAILED — CHECK CONSOLE");
+    return;
+  }
+
+} catch (err) {
+  console.error(err);
 }
 
-console.log("PARSED DATA:", data);
-
-if (!res.ok || data.success === false) {
-  alert("SAVE FAILED — CHECK CONSOLE");
-  return;
-}
 
     const clientId = editingId || data.clientId;
 
