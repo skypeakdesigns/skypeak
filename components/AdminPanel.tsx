@@ -1445,7 +1445,22 @@ const updateActivity = async (
                     <h4 className="text-lg font-black text-slate-900 flex items-center gap-2"><Lock className="w-5 h-5 text-blue-500" /> Portal Credentials</h4>
                     <div className="space-y-4">
                       <div className="space-y-2"><label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Username</label><input required type="text" value={form.username} onChange={e => setForm({...form, username: e.target.value})} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none" /></div>
-                      <div className="space-y-2"><label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Secure Password</label><input required type="text" value={form.password} onChange={e => setForm({...form, password: e.target.value})} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none" /></div>
+                      <div className="space-y-2">
+  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+    Secure Password
+  </label>
+
+  <input
+    type="password"
+    value={form.password}
+    onChange={e =>
+      setForm({ ...form, password: e.target.value })
+    }
+    placeholder={editingId ? "Leave blank to keep current password" : "Enter password"}
+    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm outline-none"
+  />
+</div>
+
                     </div>
                   </div>
                 </div>
