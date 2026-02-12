@@ -289,64 +289,69 @@ const handleSubmit = async (e: React.FormEvent) => {
     workTime: form.workTime
   };
 
- try {
-
-  // ✅ 1️⃣ PREPARE BODY FIRST
-  let bodyData: any = { ...payload };
-
-  if (!editingId) {
-    // CREATE → must send username + password
-    bodyData.username = form.username;
-    bodyData.password = form.password;
-  } else {
-    // UPDATE → send only if filled
-    if (form.username.trim() !== "") {
-      bodyData.username = form.username;
-    }
-
-    if (form.password.trim() !== "") {
-      bodyData.password = form.password;
-    }
-  }
-
-  console.log("🚀 FINAL BODY:", bodyData);
-
-  // ✅ 2️⃣ THEN CALL FETCH
-  const res = await fetch(
-    `${API_BASE}/admin/clients.php${editingId ? `?id=${editingId}` : ""}`,
-    {
-      method: editingId ? "PUT" : "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json",
-      },
-      body: JSON.stringify(bodyData), // ✅ PUT IT HERE
-    }
-  );
-
-  const text = await res.text();
-  console.log("RAW RESPONSE:", text);
-
-  let data;
   try {
-    data = JSON.parse(text);
-  } catch (e) {
-    console.error("INVALID JSON FROM SERVER");
-    alert("Server returned invalid JSON");
-    return;
+    // ✅ 1️⃣ PREPARE BODY FIRST
+    let bodyData: any = { ...payload };
+
+    if (!editingId) {
+      // CREATE → must send username + password
+      bodyData.username = form.username;
+      bodyData.password = form.password;
+    } else {
+      // UPDATE → send only if filled
+      if (form.username.trim() !== "") {
+        bodyData.username = form.username;
+      }
+
+      if (form.password.trim() !== "") {
+        bodyData.password = form.password;
+      }
+    }
+
+    console.log("🚀 FINAL BODY:", bodyData);
+
+    // ✅ 2️⃣ CALL FETCH
+    const res = await fetch(
+      `${API_BASE}/admin/clients.php${editingId ? `?id=${editingId}` : ""}`,
+      {
+        method: editingId ? "PUT" : "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+        },
+        body: JSON.stringify(bodyData),
+      }
+    );
+
+    const text = await res.text();
+    console.log("RAW RESPONSE:", text);
+
+    let data;
+    try {
+      data = JSON.parse(text);
+    } catch {
+      console.error("INVALID JSON FROM SERVER");
+      alert("Server returned invalid JSON");
+      return;
+    }
+
+    console.log("PARSED DATA:", data);
+
+    if (!res.ok || data.success === false) {
+      alert("SAVE FAILED — CHECK CONSOLE");
+      return;
+    }
+
+    // ✅ Refresh client list
+    await fetchClients();
+
+    alert("Client saved successfully!");
+
+  } catch (err) {
+    console.error("Save failed:", err);
+    alert("Unexpected error occurred");
   }
-
-  console.log("PARSED DATA:", data);
-
-  if (!res.ok || data.success === false) {
-    alert("SAVE FAILED — CHECK CONSOLE");
-    return;
-  }
-
-} catch (err) {
-  console.error(err);
-}
-
+};
 
     const clientId = editingId || data.clientId;
 
