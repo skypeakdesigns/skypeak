@@ -92,7 +92,7 @@ const DomainSection: React.FC<DomainSectionProps> = ({ clientData }) => {
               </div>
             </div>
           </div>
-        </div>
+        
 
 
           <div className="bg-orange-50 border border-orange-100 p-8 rounded-[2.5rem]">
