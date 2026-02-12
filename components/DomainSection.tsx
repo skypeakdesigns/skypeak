@@ -60,7 +60,7 @@ const calculateDaysRemaining = (expiry?: string) => {
 
             <div className="p-10 grid grid-cols-1 md:grid-cols-2 gap-10">
               <div>
-                <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-4">Domain Lifecycle</h4>
+                <h4 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-4">Domain Lifecycle</h4>
                 <div className="flex items-center gap-4 mb-6">
                   <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100">
                     <Clock className={`w-8 h-8 ${daysRemaining < 30 ? 'text-red-500' : 'text-slate-400'}`} />
