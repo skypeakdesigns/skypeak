@@ -10,21 +10,7 @@ const SupportSection: React.FC = () => {
         <p className="text-slate-500">Search our knowledge base or reach out to your dedicated account manager.</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {[
-          { icon: Book, title: 'Knowledge Base', desc: 'Read guides and tutorials.' },
-          { icon: MessageSquare, title: 'Live Chat', desc: 'Typical response in 5 min.' },
-          { icon: FileText, title: 'Ticketing', desc: 'Submit a technical request.' },
-        ].map((item, i) => (
-          <div key={i} className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm hover:border-orange-200 transition-colors group cursor-pointer text-center">
-            <div className="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-orange-50 transition-colors">
-              <item.icon className="w-8 h-8 text-slate-400 group-hover:text-orange-500 transition-colors" />
-            </div>
-            <h3 className="font-bold text-slate-900 mb-2">{item.title}</h3>
-            <p className="text-sm text-slate-500">{item.desc}</p>
-          </div>
-        ))}
-      </div>
+   
 
       <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden flex flex-col md:flex-row">
         <div className="p-10 flex-1 border-b md:border-b-0 md:border-r border-slate-100">
