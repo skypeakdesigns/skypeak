@@ -79,9 +79,7 @@ const WebsitePaymentSection: React.FC<WebsitePaymentSectionProps> = ({ clientDat
                       <span className={`text-[8px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full ${pay.status === 'Paid' ? 'bg-emerald-100 text-emerald-700' : 'bg-orange-100 text-orange-700'}`}>
                         {pay.status}
                       </span>
-                      <button className="text-slate-300 hover:text-indigo-600 transition-colors">
-                        <Download className="w-4 h-4" />
-                      </button>
+                     
                     </div>
                   </div>
                 </div>
