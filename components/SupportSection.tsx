@@ -9,9 +9,6 @@ const SupportSection: React.FC = () => {
         <h2 className="text-3xl font-black text-slate-900 mb-4">How can we help you today?</h2>
         <p className="text-slate-500">Search our knowledge base or reach out to your dedicated account manager.</p>
       </div>
-
-   
-
       <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden flex flex-col md:flex-row">
         <div className="p-10 flex-1 border-b md:border-b-0 md:border-r border-slate-100">
           <h3 className="text-xl font-bold text-slate-900 mb-6">Send a Message</h3>
