@@ -109,22 +109,7 @@ const WebsitePaymentSection: React.FC<WebsitePaymentSectionProps> = ({ clientDat
             </div>
           </div>
 
-          <div className="bg-white p-8 rounded-[2.5rem] border border-slate-200 shadow-xl shadow-slate-200/40">
-            <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-6">Payment Methods</h4>
-            <div className="space-y-4">
-              <div className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl border border-slate-100">
-                <span className="text-xs font-bold text-slate-500">Bank Transfer (ACH)</span>
-                <span className="text-[10px] font-black text-emerald-600 uppercase tracking-widest">Recommended</span>
-              </div>
-              <div className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl border border-slate-100">
-                <span className="text-xs font-bold text-slate-500">Credit / Debit Card</span>
-                <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">3% Fee</span>
-              </div>
-            </div>
-            <button className="w-full mt-8 py-4 bg-slate-100 hover:bg-slate-200 text-slate-900 font-black rounded-xl text-[10px] uppercase tracking-widest transition-all">
-              Update Billing Info
-            </button>
-          </div>
+         
         </div>
       </div>
     </div>
