@@ -132,7 +132,7 @@ const SupportSection: React.FC = () => {
                   Phone Support
                 </p>
                 <p className="font-bold text-slate-900">
-                  +1 (555) 000-0000
+                  +1 (778)2125977
                 </p>
               </div>
             </div>
