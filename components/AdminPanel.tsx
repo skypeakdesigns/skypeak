@@ -645,8 +645,7 @@ const uploadAndCreateInvoice = async () => {
   alert("Invoice amount required");
   return;
 }
-    return;
-  }
+   
 
   const formData = new FormData();
   formData.append("pdf", uploadFile);
@@ -1543,8 +1542,6 @@ const updateActivity = async (
   <div className="space-y-4 max-h-[400px] overflow-y-auto pr-2 no-scrollbar">
     {form.seoRankings.map(rk => {
       const isEditing = editingRankingId === rk.id;
-
-      return (
         <div
           key={rk.id}
           className="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-4 relative"
