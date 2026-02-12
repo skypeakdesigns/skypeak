@@ -2431,8 +2431,7 @@ const updateActivity = async (
         </div>
       )}
     </div>
-    </div>
-    </div>
+   
   );
 };
 
