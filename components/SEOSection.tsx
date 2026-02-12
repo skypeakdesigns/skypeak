@@ -21,9 +21,7 @@ const SEOSection: React.FC<SEOSectionProps> = ({ clientData }) => {
     <div className="space-y-8 animate-in fade-in duration-500">
       <div className="flex flex-col md:flex-row items-start justify-between gap-4">
         <div><h2 className="text-2xl font-bold text-slate-900">Search Strategy</h2><p className="text-slate-500">Visibility metrics for <span className="font-bold text-orange-500">{clientData.domain}</span></p></div>
-        <div className="flex gap-2">
-          <button className="px-4 py-2 bg-white border border-slate-200 rounded-xl text-sm font-bold hover:bg-slate-50 transition-colors shadow-sm">Audit PDF</button>
-        </div>
+        
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
