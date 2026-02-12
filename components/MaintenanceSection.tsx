@@ -141,7 +141,8 @@ const MaintenanceSection: React.FC<MaintenanceSectionProps> = ({ clientData }) =
                 <CheckCircle2 className="w-4 h-4 text-emerald-500" /> Daily Backups
               </div>
             </div>
-            <button className="w-full mt-8 py-3 bg-orange-500 text-white rounded-xl font-bold hover:bg-orange-600 transition-all flex items-center justify-center gap-2">
+            <button onClick={() => setActiveTab(AppTab.HELP)}
+              className="w-full mt-8 py-3 bg-orange-500 text-white rounded-xl font-bold hover:bg-orange-600 transition-all flex items-center justify-center gap-2">
               Upgrade Plan <ArrowRight className="w-4 h-4" />
             </button>
           </div>
