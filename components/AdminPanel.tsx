@@ -299,15 +299,26 @@ const handleSubmit = async (e: React.FormEvent) => {
       "Content-Type": "application/json",
       "Accept": "application/json",
     },
-    body: JSON.stringify({
-      ...payload,
-      username: form.username,
-      password: form.password
-    }),
+   const finalPayload: any = {
+  ...payload,
+  username: form.username
+};
+
+if (form.password && form.password.trim() !== "") {
+  finalPayload.password = form.password;
+}
+
+const res = await fetch(
+  `${API_BASE}/admin/clients.php${editingId ? `?id=${editingId}` : ""}`,
+  {
+    method: editingId ? "PUT" : "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+    },
+    body: JSON.stringify(finalPayload),
   }
 );
-
-
   const text = await res.text();
 console.log("RAW RESPONSE:", text);
 
