@@ -65,7 +65,7 @@ const SupportSection: React.FC = () => {
               </div>
               <div>
                 <p className="text-xs font-bold text-slate-400 uppercase mb-1">Account Manager</p>
-                <p className="font-bold text-slate-900">Sarah Jenkins</p>
+                <p className="font-bold text-slate-900">zia shahid</p>
                 <p className="text-xs text-orange-600 font-semibold cursor-pointer">Email Sarah</p>
               </div>
             </div>
