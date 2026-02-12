@@ -179,7 +179,10 @@ const loadClients = async () => {
       case AppTab.MAINTENANCE:
         return <MaintenanceSection clientData={client} />;
       case AppTab.HELP:
-        return <SupportSection />;
+  return user?.role === "ADMIN"
+    ? <AdminSupportInbox />
+    : <SupportSection />;
+
       case AppTab.CLIENTS:
         return <AdminPanel clients={clients} setClients={setClients} />;
       case AppTab.SOURCE_CODE:
