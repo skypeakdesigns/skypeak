@@ -41,7 +41,8 @@ const calculateDaysRemaining = (expiry?: string) => {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-8">
-          <div className="bg-white rounded-[2.5rem] border border-slate-200 shadow-xl shadow-slate-200/40 overflow-hidden">
+          <div className="bg-white rounded-3xl border border-slate-200 shadow-xl shadow-slate-200/40 overflow-hidden">
+
             <div className="bg-slate-900 p-10 text-white relative">
               <Globe className="absolute -right-8 -bottom-8 w-48 h-48 opacity-5" />
               <div className="relative z-10">
@@ -76,7 +77,8 @@ const calculateDaysRemaining = (expiry?: string) => {
       
               </div>
 
-              <div className="bg-slate-50 p-8 rounded-[2rem] border border-slate-200/60">
+              <div className="bg-slate-50 p-8 rounded-3xl border border-slate-200/60">
+
                 <h4 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-6">Registry Details</h4>
                 <div className="space-y-4">
                   <div className="flex justify-between items-center text-sm">
@@ -98,7 +100,8 @@ const calculateDaysRemaining = (expiry?: string) => {
         
 
 
-          <div className="bg-orange-50 border border-orange-100 p-8 rounded-[2.5rem]">
+          <div className="bg-orange-50 border border-orange-100 p-8 rounded-3xl">
+
             <div className="flex items-center gap-3 mb-4">
               <Info className="w-5 h-5 text-orange-500" />
               <h4 className="font-black text-orange-900 text-sm uppercase tracking-widest">Management Tip</h4>
