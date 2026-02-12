@@ -146,17 +146,7 @@ const MaintenanceSection: React.FC<MaintenanceSectionProps> = ({ clientData }) =
             </button>
           </div>
 
-          <div className="bg-white rounded-3xl border border-slate-200 shadow-sm p-6">
-            <h4 className="font-bold text-slate-900 mb-4">Request Fix</h4>
-            <p className="text-xs text-slate-500 mb-6">Need a small adjustment or found a bug? Let us know.</p>
-            <textarea 
-              className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 h-24 mb-4 resize-none"
-              placeholder="Describe the issue..."
-            ></textarea>
-            <button className="w-full py-2 bg-slate-900 text-white rounded-lg text-sm font-bold hover:bg-slate-800">
-              Submit Request
-            </button>
-          </div>
+          
         </div>
       </div>
     </div>
