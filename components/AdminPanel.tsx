@@ -1357,17 +1357,62 @@ const updateActivity = async (
                 <th className="px-8 py-5"></th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
-              {clients.map((client) => (
-                <tr key={client.id} className="hover:bg-slate-50/40 group transition-all">
-                  <td className="px-8 py-6"><div className="font-bold text-slate-900">{client.name}</div><div className="text-xs text-slate-500">{client.domain}</div></td>
-                  <td className="px-8 py-6"><div className="text-sm font-bold text-slate-700">{client.username}</div><div className="text-[10px] text-slate-400 font-mono">{client.password}</div></td>
-                  <td className="px-8 py-6"><div className="flex items-center gap-1.5"><span className="w-2 h-2 bg-emerald-500 rounded-full"></span><span className="text-[10px] font-black uppercase tracking-widest text-slate-500">Healthy</span></div></td>
-                  <td className="px-8 py-6"><div className="font-black text-slate-900">${(client.monthlyPrice + client.maintenancePrice).toFixed(0)}</div></td>
-                  <td className="px-8 py-6 text-right"><div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity"><button onClick={() => openEdit(client)} className="p-2 text-slate-400 hover:text-orange-500 border border-slate-100 rounded-lg"><Edit2 className="w-4 h-4" /></button><button onClick={() => removeClient(client.id)} className="p-2 text-slate-400 hover:text-red-500 border border-slate-100 rounded-lg"><Trash2 className="w-4 h-4" /></button></div></td>
-                </tr>
-              ))}
-            </tbody>
+           <tbody className="divide-y divide-slate-100">
+  {clients.map((client) => (
+    <tr key={client.id} className="hover:bg-slate-50/40 group transition-all">
+
+      <td className="px-8 py-6">
+        <div className="font-bold text-slate-900">
+          {client.name}
+        </div>
+        <div className="text-xs text-slate-500">
+          {client.domain}
+        </div>
+      </td>
+
+      <td className="px-8 py-6">
+        <div className="text-sm font-bold text-slate-700">
+          {client.username}
+        </div>
+      </td>
+
+      <td className="px-8 py-6">
+        <div className="flex items-center gap-1.5">
+          <span className="w-2 h-2 bg-emerald-500 rounded-full"></span>
+          <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">
+            Healthy
+          </span>
+        </div>
+      </td>
+
+      <td className="px-8 py-6">
+        <div className="font-black text-slate-900">
+          ${Number(client.monthlyPrice || 0) + Number(client.maintenancePrice || 0)}
+        </div>
+      </td>
+
+      <td className="px-8 py-6 text-right">
+        <div className="flex gap-2">
+          <button
+            onClick={() => openEdit(client)}
+            className="p-2 text-slate-400 hover:text-orange-500 border border-slate-100 rounded-lg"
+          >
+            <Edit2 className="w-4 h-4" />
+          </button>
+
+          <button
+            onClick={() => removeClient(client.id)}
+            className="p-2 text-slate-400 hover:text-red-500 border border-slate-100 rounded-lg"
+          >
+            <Trash2 className="w-4 h-4" />
+          </button>
+        </div>
+      </td>
+
+    </tr>
+  ))}
+</tbody>
+
           </table>
   
             </div>
